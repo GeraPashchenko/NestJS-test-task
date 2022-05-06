@@ -1,0 +1,46 @@
+version: "3"
+services:
+  postgres-db:
+    container_name: postgres-db
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    volumes:
+      - /data/postgres:/data/postgres-db
+    env_file:
+      - '.env'
+
+  nestjs:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: nestjs-test-beckend
+    env_file:
+      - '.env'
+    environment:
+      - POSTGRES_HOST=postgres-db
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    container_name: nest-be
+    depends_on:
+      - postgres-db
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: nest-pgadmin4
+    env_file:
+      - '.env'
+    ports:
+      - "8080:80"
+    volumes:
+      - ./pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - postgres-db
+
+volumes:
+  pgdata:
+  pgadmin-data:
