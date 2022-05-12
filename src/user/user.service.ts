@@ -24,7 +24,7 @@ export class UserService {
    * @param createUserDto - user dto
    * @returns created user
    */
-  async createUser(createUserDto: CreateUserDto): Promise<any> {
+  async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
     const userByEmail = await this.userRepository.findOne({
       email: createUserDto.email,
     });

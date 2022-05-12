@@ -45,6 +45,12 @@ export class ServiceService {
     return await this.serviceRepository.save(newService);
   }
 
+  /**
+   * @async
+   * Ban user at a service
+   * @param banDto - ban user dto
+   * @returns banned user
+   */
   async banUser(banDto: BanUserDto): Promise<BannedUsersEntity> {
     const user = await this.userRepository.findOne(banDto.userId);
     const service = await this.serviceRepository.findOne(banDto.serviceId);
