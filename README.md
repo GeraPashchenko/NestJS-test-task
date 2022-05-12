@@ -29,3 +29,4 @@ If you run docker instance:
 - Show a list of Services to which the User was subscribed
 - Full text search of Services by Service title and sort by popularity
 - Ban User on a Service
+- Dockerized app
